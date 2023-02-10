@@ -2,17 +2,26 @@
   index: {
     title: "Home"
   },
-  about: {
-    title: "About"
+  dashboard_playa: {
+    title: "Dashboard Playa"
   },
-  products: {
-    title: "Products"
+  dashboard_vrbcash: {
+    title: "Dashboard VRBCash"
   },
-  services: {
-    title: "Services"
+  dashboard_subscribers: {
+    title: "Subscribers"
   },
-  contacts: {
-    title: "Contacts"
+  dashboard_vrbcash_statistics: {
+    title: "VRBCash Statistics"
+  },
+  dashboard_vrbs_statistics: {
+    title: "Site Video Statistics"
+  },
+  dashboard_sale_statistics: {
+    title: "Sale Statistics"
+  },
+  playa_videos_statistics: {
+    title: "Playa Statistics"
   },
   cab: {
     title: "Cabinet"
@@ -31,5 +40,5 @@
     email: "Email",
     password: "Password",
     go: "Go"
-  }
+  },
 }

@@ -35,7 +35,6 @@
         <v-spacer></v-spacer>
 
         <!-- <v-icon>mdi mdi-star-outline</v-icon> -->
-
         <!-- <div style="color: #fff;">{{ userStore.scope }}</div> -->
         
         <v-btn icon v-if="isAdmin">
@@ -52,12 +51,12 @@
             </v-btn>
         </client-only>
    
-        <template v-if="$i18n.locale=='en'" v-slot:append>
+        <!-- <template v-if="$i18n.locale=='en'" v-slot:append>
             <v-btn @click="$i18n.locale='ru'">RU</v-btn>
         </template>
         <template v-else v-slot:append>
             <v-btn @click="$i18n.locale='en'">EN</v-btn>
-        </template>
+        </template> -->
         
         </v-app-bar>
 
@@ -136,7 +135,7 @@ const { data, pending, error, refresh } = useFetch('/api/docs', {
 })
 
 docs = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-console.log("DOCS: ", docs.data);
+// console.log("DOCS: ", docs.data);
 
 </script>
 

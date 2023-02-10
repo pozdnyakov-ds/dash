@@ -2,17 +2,26 @@
   index: {
     title: "Начало"
   },
-  about: {
-    title: "О компании"
+  dashboard_playa: {
+    title: "Dashboard Playa"
   },
-  products: {
-    title: "Продукты"
+  dashboard_vrbcash: {
+    title: "Dashboard VRBCash"
   },
-  services: {
-    title: "Услуги"
+  dashboard_subscribers: {
+    title: "Subscribers"
   },
-  contacts: {
-    title: "Контакты"
+  dashboard_vrbcash_statistics: {
+    title: "VRBCash Statistics"
+  },
+  dashboard_vrbs_statistics: {
+    title: "Site Video Statistics"
+  },
+  dashboard_sale_statistics: {
+    title: "Sale Statistics"
+  },
+  playa_videos_statistics: {
+    title: "Playa Statistics"
   },
   cab: {
     title: "Кабинет"

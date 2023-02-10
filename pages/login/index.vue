@@ -85,7 +85,7 @@
 
 	const submitForm = (userInfo) => {
 		try {
-			$fetch('/api/users', { 
+			$fetch('/api/login', { 
 				method: 'post', 
 				body: { 
 					email: userInfo.email,
