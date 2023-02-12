@@ -100,15 +100,20 @@
 				if (error.value == 0) {
 					try {
 						const user = { ...response.data.user }
-						let scope = user.scope.split(',') || []
-						user.scope = scope
+						// let scope = user.scope.split(',') || []
+						let scope = JSON.parse(user.scope)
+						user.scope = {...scope}
+
+						let docs = JSON.parse(user.docs)
+						user.docs = {...docs}
 						
 						userStore.loggedIn = true
 						userStore.name = user.name
         				userStore.surname = user.surname
         				userStore.email = user.email
         				userStore.phone = user.phone
-						userStore.scope = scope
+						userStore.scope = {...user.scope}
+						userStore.docs = {...user.docs}
 						
 						const router = useRouter()
 						router.push("/")
