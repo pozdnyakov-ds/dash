@@ -2,7 +2,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-import { aliases, fa } from 'vuetify/iconsets/fa'
+import { aliases, fa } from 'vuetify/lib/iconsets/fa'
 import { mdi }  from "vuetify/lib/iconsets/mdi";
 
 import '@mdi/font/css/materialdesignicons.css'
@@ -17,7 +17,8 @@ export default defineNuxtPlugin(nuxtApp => {
       aliases,
       sets: {
           mdi,
-          fa
+          fa,
+
       }
     }
   })

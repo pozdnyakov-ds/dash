@@ -32,6 +32,11 @@
                 status: checked.value ? 1 : 0
             }
         })
+        if (data) {
+            useNuxtApp().$toast.success('Status has changed');
+        } else {
+            useNuxtApp().$toast.error('Status changing error!');
+        }
     }
 </script>
 

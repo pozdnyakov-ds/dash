@@ -39,6 +39,6 @@ export default defineNuxtConfig({
     vueI18n: {
       locale: 'en'
     }
-  }
+  },
     
 })

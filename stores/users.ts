@@ -4,7 +4,8 @@ export const useUserStore = defineStore('user', {
         surname: '', 
         email: '',
         phone: '',
-        scope: [],
+        scope: {},
+        docs: {},
         loggedIn: false
     }),
     actions: {

@@ -1,9 +1,9 @@
 export default defineNuxtRouteMiddleware((to, from) => {
     const userStore = useUserStore()
-    const scope: string[] = userStore.scope || []
-    // console.log("SCOPE: ", userStore.scope, ' -> ', scope)
+    const scope = {...userStore.scope}
+    // console.log("ADMIN: ", scope)
 
-    if (scope.length == 0 || !scope.includes('admin')) {
+    if (!scope || !scope.admin || scope.admin != 1) {
         return navigateTo('/login')
     }
   })

@@ -95,10 +95,7 @@
                     </nuxt-link>
                 </v-list-item>
             </div> 
-            
-
         </v-navigation-drawer>
-
     </div>
 </template>
 
@@ -110,7 +107,7 @@ const userStore = useUserStore()
 
 let isAdmin = computed({
     get() {
-        if (userStore.scope && userStore.scope.includes("admin")) {
+        if (userStore.scope && userStore.scope.admin == 1) {
             return true
         } else {
             return false
@@ -124,14 +121,15 @@ const logout = () => {
     userStore.surname = ''
     userStore.email = ''
     userStore.phone = ''
-    userStore.scope = []
+    userStore.scope = {}
+    userStore.docs = {}
 }
 
 const { data, pending, error, refresh } = useFetch('/api/docs', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/json"
+    },
 })
 
 docs = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
