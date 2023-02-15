@@ -22,7 +22,7 @@
             required: true,
         },
         right_status: {
-            type: Boolean,
+            type: Number,
             required: true,
         }   
     })

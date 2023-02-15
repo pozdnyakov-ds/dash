@@ -49,8 +49,8 @@
                       <th class="text-left">Status</th>
                       <th class="text-left"><i style="font-size: 150%; cursor: pointer;" class="mdi mdi-delete"></i></th>
                     </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                     <tr v-for="item in users" :key="item.email">
                       <td>{{ item.name }}</td>
                       <td>{{ item.email }}</td>
@@ -59,10 +59,11 @@
                       <td><CheckboxStatus v-bind="item" /></td>
                       <td><i style="font-size: 150%; cursor: pointer;" class="mdi mdi-delete-forever" @click="deleteUser(item.id)"></i></td>
                     </tr>
-                  </tbody>
+                </tbody>
             </v-table>
         </v-card>
 
+        <client-only>
         <v-row justify="center">
             <v-dialog v-model="dialog_delete" persistent width="auto">
               <v-card>
@@ -89,13 +90,15 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-          </v-row>
+        </v-row>
+        </client-only>  
 
     </div>
 </template>
 
 <script setup>
     definePageMeta({
+        layout: "default",
         middleware: ['auth','admin']
     })
 
@@ -107,7 +110,7 @@
 	})
 
     const valid = ref(true)
-    var users = {}
+    const users = ref({})
     const dialog_delete = ref(false)
     const id_to_delete = ref('')
 
@@ -141,8 +144,8 @@
         id_to_delete.value = 0
     }
 
-    const loadUsers = () => {
-        const { data, pending, error, refresh } = useFetch('/api/users', {
+    const loadUsers = async () => {
+        const { data, pending, error, refresh } = await useFetch('/api/users', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -151,14 +154,12 @@
                 action: 'users.list'
             }
         })
-        users = data && data.value && data.value.data ? JSON.parse(JSON.stringify(data.value.data)) : []
+        users.value = data && data.value && data.value.data ? JSON.parse(JSON.stringify(data.value.data)) : []
+        // console.log("USERS: ", users.value)
     }    
     
-    // Загрузить юзеров
-    loadUsers()
-
     const submitForm = (user) => {
-        console.log("Add user: ", user)
+        // console.log("Add user: ", user)
 
         const { data, pending, error, refresh } = useFetch('/api/users', {
             method: 'POST',
@@ -189,6 +190,9 @@
         dialog_delete.value = true
         id_to_delete.value = id
     }
+
+    // Загрузить юзеров
+    loadUsers()
 
 </script>
 

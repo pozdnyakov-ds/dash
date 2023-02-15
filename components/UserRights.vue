@@ -16,7 +16,7 @@
                 required: true,
             }, 
             scope: {
-                type: Object,
+                type: String,
                 required: true,
             }   
         })

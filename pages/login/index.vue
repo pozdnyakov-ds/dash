@@ -96,9 +96,9 @@
 				console.log("DATA: ", response)
 				error.value = response.data.error
 				message.value = response.data.error > 0 ? response.data.message : ''
-				
+
 				if (error.value == 0) {
-					try {
+					// try {
 						const user = { ...response.data.user }
 						// let scope = user.scope.split(',') || []
 						let scope = JSON.parse(user.scope)
@@ -106,7 +106,7 @@
 
 						let docs = JSON.parse(user.docs)
 						user.docs = {...docs}
-						
+
 						userStore.loggedIn = true
 						userStore.name = user.name
         				userStore.surname = user.surname
@@ -114,13 +114,13 @@
         				userStore.phone = user.phone
 						userStore.scope = {...user.scope}
 						userStore.docs = {...user.docs}
-						
+
 						const router = useRouter()
 						router.push("/")
 
-					} catch (e) {
-  						userStore.loggedIn = false
-					}
+					// } catch (e) {
+  					// 	userStore.loggedIn = false
+					// }
 				} else {
 					userStore.loggedIn = false
 				}

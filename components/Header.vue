@@ -37,11 +37,13 @@
         <!-- <v-icon>mdi mdi-star-outline</v-icon> -->
         <!-- <div style="color: #fff;">{{ userStore.scope }}</div> -->
         
-        <v-btn icon v-if="isAdmin">
-            <nuxt-link to="/admin">
-                <v-icon>mdi-pound-box</v-icon>
-            </nuxt-link>
-        </v-btn>
+        <!-- <client-only> -->
+            <v-btn icon v-if="isAdmin">
+                <nuxt-link to="/admin">
+                    <v-icon>mdi-pound-box</v-icon>
+                </nuxt-link>
+            </v-btn>
+        <!-- </client-only> -->
 
         <client-only>
             <v-btn icon v-if="userStore.loggedIn">
@@ -102,7 +104,7 @@
 <script setup>
 let drawer = ref(true)
 let tab = ref(null)
-let docs = ref([])
+let docs = ref({})
 const userStore = useUserStore()
 
 let isAdmin = computed({
@@ -115,7 +117,7 @@ let isAdmin = computed({
     }
 })
 
-const logout = () => {
+const logout = async () => {
     userStore.loggedIn = false
     userStore.name = ''
     userStore.surname = ''
@@ -124,16 +126,14 @@ const logout = () => {
     userStore.scope = {}
     userStore.docs = {}
 }
+    const { data, pending, error, refresh } = await useFetch('/api/docs', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
 
-const { data, pending, error, refresh } = useFetch('/api/docs', {
-    method: 'POST',
-    headers: {
-        "Content-Type": "application/json"
-    },
-})
-
-docs = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-// console.log("DOCS: ", docs.data);
+    docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
 
 </script>
 

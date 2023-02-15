@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
   });
 
   const row = await db_get(
-    "SELECT id, name, surname, email, scope FROM users WHERE email=? AND password=? AND status=1",
+    "SELECT id, name, surname, email, scope, docs FROM users WHERE email=? AND password=? AND status=1",
     [user.email, user.password]
   );
 

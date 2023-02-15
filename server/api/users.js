@@ -44,6 +44,7 @@ export default defineEventHandler(async (event) => {
   });
 
   switch(params.action) {
+
     case 'users.list':
       const users = await db_get(
         "SELECT id, name, surname, email, photo, scope, docs, status FROM users WHERE 1 ORDER BY name",
@@ -54,6 +55,7 @@ export default defineEventHandler(async (event) => {
         return { data: null }
       } else {
         setData(0, "Успешно", users);
+        // console.log("SERVER USERS: ", users)
         return { data: users }
       }
       break
@@ -61,17 +63,18 @@ export default defineEventHandler(async (event) => {
     case 'users.add':
       var id = Math.random().toString(32).slice(2);
       var statuses_set = '{"user":1,"admin":0,"owner":0}'
+      var docs_set = '{"0":1}'
 
       const res0 = await db_get(
-        "INSERT INTO users (id, name, surname, email, scope, status) VALUES (?, ?, ?, ?, ?, ?)",
-        [id, params.name, params.surname, params.email, statuses_set, 0]
+        "INSERT INTO users (id, name, surname, email, scope, docs, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [id, params.name, params.surname, params.email, statuses_set, docs_set, 0]
       );
-      if (!users) {
+      if (!res0) {
         setData(1, "Нет данных", null);
         return { data: null }
       } else {
-        setData(0, "Успешно", users);
-        return { data: users }
+        setData(0, "Успешно", res0);
+        return { data: res0 }
       }
       break
 
@@ -103,8 +106,18 @@ export default defineEventHandler(async (event) => {
       }
       break
 
-    case 'users.docs':
-      //...
+    case 'users.get.docs':
+      const docs = await db_get(
+        "SELECT docs FROM users WHERE id=?",
+        [params.id]
+      );
+      if (!docs) {
+        setData(1, "Нет данных", null);
+        return { data: null }
+      } else {
+        setData(0, "Успешно", docs[0]);
+        return { data: docs[0] }
+      }
       break
 
     case 'users.status':
