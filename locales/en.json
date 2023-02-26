@@ -5,6 +5,24 @@
   dashboard_playa: {
     title: "Dashboard Playa"
   },
+  geo_playa_statistic: {
+    title: "Geo Statistics"
+  },
+  playa_statistic: {
+    title: "Sites & Devices Statistics"
+  },
+  videos_playa_api_statistic: {
+    title: "Videos API Statistics"
+  },
+  categories_playa_statistic: {
+    title: "Videos Categories Statistics"
+  },
+  models_playa_statistic: {
+    title: "Videos Starring Statistics"
+  },
+  videos_playa_statistic: {
+    title: "Videos Statistics"
+  },
   dashboard_vrbcash: {
     title: "Dashboard VRBCash"
   },

@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "dash",
+            "database": "${workspaceFolder:dash}/db/data.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

@@ -91,7 +91,7 @@
                         <div v-if="item.parent" style="margin-left: 10px;">
                             {{ item.name }}
                         </div>
-                        <div v-else>
+                        <div v-else style="margin-top: 10px; border-bottom: 1px #ccc solid;">
                             {{ item.name }}
                         </div>
                     </nuxt-link>

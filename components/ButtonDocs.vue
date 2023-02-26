@@ -12,17 +12,22 @@
                       Список документов
                     </v-card-title>
                     <v-card-text>
-                        ...
+                        <!-- {{ docs }} -->
+                        <div v-for="doc in all_docs.data" :key="doc.id" style="vertical-align: top;">
+                            <CheckboxDoc :id="doc.id" :user_id="props.id" :status="docs[doc.id] ? 1 : 0" style="display: inline-block; margin-right: 7px;"></CheckboxDoc>
+                            <div v-if="doc.parent" style="display: inline-block;">&nbsp;&nbsp;</div>
+                            <div style="display: inline-block;">{{doc.name}}</div>
+                        </div>
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn
+                      <!-- <v-btn
                         color="green-darken-1"
                         variant="text"
                         @click="dialog_docs_yes"
                       >
                         Сохранить
-                      </v-btn>
+                      </v-btn> -->
                       <v-btn
                         color="green-darken-1"
                         variant="text"
@@ -46,13 +51,25 @@
             }, 
         })
 
-    const docs = ref({})
+    const docs = ref([])
+    const all_docs = ref([])
     const dialog_docs = ref(false)
 
-    const show_docs = () => {
-        console.log("LOAD DOCS for ", props.id)
+    const loadAllDocs = async () => {
+        const { data, pending, error, refresh } = await useFetch('/api/docs', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        all_docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
+        console.log("ALL DOCS: ", all_docs.value.data)
+    }
 
-        const { data, pending, error, refresh } = useFetch('/api/users', {
+    const show_docs = async() => {
+        loadAllDocs()
+    
+        const { data, pending, error, refresh } = await useFetch('/api/users', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -64,12 +81,14 @@
         })
         if (data) {
             // Show modal list
-            docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-            docs.value = docs.value.data && docs.value.data.docs ? JSON.parse(docs.value.data.docs) : {}
-            console.log("DOCS LIST: ", docs.value)
+            docs.value = data && data.value && data.value.data ? JSON.parse(data.value.data.docs) : []
+            console.log("LIST: ", docs.value)
 
+            //all_docs.value.forEach((doc) => {
+            // for (let i = 0; i < all_docs.value.length; i++) {    
+            //     console.log("ITEM: ", all_docs.value[i])
+            // }
             dialog_docs.value = true
-
 
         } else {
             useNuxtApp().$toast.error('Docs list error!');
@@ -85,7 +104,7 @@
                 "Content-Type": "application/json"
             },
             body: {
-                action: 'users.delete',
+                action: 'users.update',
                 id: props.id
             }
         })  

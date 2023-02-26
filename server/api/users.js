@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
         // console.log("SERVER USERS: ", users)
         return { data: users }
       }
-      break
+      break;
 
     case 'users.add':
       var id = Math.random().toString(32).slice(2);
@@ -76,7 +76,7 @@ export default defineEventHandler(async (event) => {
         setData(0, "Успешно", res0);
         return { data: res0 }
       }
-      break
+      break;
 
     case 'users.right':
       const rights = await db_get(
@@ -104,13 +104,15 @@ export default defineEventHandler(async (event) => {
         }
 
       }
-      break
+      break;
 
     case 'users.get.docs':
       const docs = await db_get(
         "SELECT docs FROM users WHERE id=?",
         [params.id]
       );
+      //console.log("SERVER DOCS: ", params.id, docs);
+
       if (!docs) {
         setData(1, "Нет данных", null);
         return { data: null }
@@ -118,7 +120,7 @@ export default defineEventHandler(async (event) => {
         setData(0, "Успешно", docs[0]);
         return { data: docs[0] }
       }
-      break
+      break;
 
     case 'users.status':
       const res2 = await db_update(
@@ -133,9 +135,39 @@ export default defineEventHandler(async (event) => {
         console.log("users.status: ", res2);
         return { data: res2 }
       }
-      break
+      break;
 
-      case 'users.delete':
+    case 'users.docs.update':
+      const docs_statuses = await db_get(
+        "SELECT docs FROM users WHERE id=?",
+        [params.user_id]
+      );
+
+      if (!docs_statuses) {
+        setData(1, "Нет данных", null);
+        return { data: null }
+
+      } else {
+        let data = JSON.parse(docs_statuses[0].docs);
+        data[params.id] = params.status;
+//      console.log("new docs: ", data, " -> User: ", params.id);
+
+        const res1 = await db_update(
+          "UPDATE users SET docs=? WHERE id=?",
+          [JSON.stringify(data), params.user_id]
+        );
+        if (!res1) {
+          setData(1, "Нет данных", null);
+          return { data: null }
+        } else {
+          setData(0, "Успешно", res1);
+          return { data: res1 }
+        }
+
+      }
+      break;
+
+    case 'users.delete':
       const res3 = await db_update(
         "DELETE from users WHERE id=?",
         [params.id]
@@ -147,7 +179,7 @@ export default defineEventHandler(async (event) => {
         setData(0, "Успешно", res3);
         return { data: res3 }
       }
-      break
+      break;
   }
   
 });
