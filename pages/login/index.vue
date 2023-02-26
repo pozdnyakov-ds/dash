@@ -53,7 +53,7 @@
 	let iEnter = ref(getCurrentInstance().proxy.$t('login.enter'))
 
     let userInfo = reactive({
-		id: null,
+		id: '',
 		name: '',
 		surname: '',
 		email: '2903015@gmail.com',
@@ -108,6 +108,7 @@
 						user.docs = {...docs}
 
 						userStore.loggedIn = true
+						userStore.id = user.id
 						userStore.name = user.name
         				userStore.surname = user.surname
         				userStore.email = user.email

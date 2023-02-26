@@ -1,11 +1,12 @@
 export const useUserStore = defineStore('user', {
     state: () => ({
+        id: '',
         name: '',
         surname: '', 
         email: '',
         phone: '',
         scope: {},
-        docs: {},
+        docs: [],
         loggedIn: false
     }),
     actions: {

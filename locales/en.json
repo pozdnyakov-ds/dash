@@ -41,6 +41,9 @@
   playa_videos_statistics: {
     title: "Playa Statistics"
   },
+  no_access: {
+    title: "No access"
+  },
   cab: {
     title: "Cabinet"
   },

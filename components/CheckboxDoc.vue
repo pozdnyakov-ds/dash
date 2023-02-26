@@ -24,6 +24,8 @@
     let checked = ref(props.status ? true : false)
 
     const updateUserDoc = () => {
+        if (props.id == 0) return
+
         checked.value = !checked.value
         console.log("CHECKBOX: ", props)
 

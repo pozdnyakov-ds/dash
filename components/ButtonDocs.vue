@@ -15,8 +15,8 @@
                         <!-- {{ docs }} -->
                         <div v-for="doc in all_docs.data" :key="doc.id" style="vertical-align: top;">
                             <CheckboxDoc :id="doc.id" :user_id="props.id" :status="docs[doc.id] ? 1 : 0" style="display: inline-block; margin-right: 7px;"></CheckboxDoc>
-                            <div v-if="doc.parent" style="display: inline-block;">&nbsp;&nbsp;</div>
-                            <div style="display: inline-block;">{{doc.name}}</div>
+                            <div v-if="doc.parent" style="display: inline-block;">&nbsp;&nbsp;{{doc.name}}</div>
+                            <div v-else style="display: inline-block;"><b>{{doc.name}}</b></div>
                         </div>
                     </v-card-text>
                     <v-card-actions>
@@ -63,7 +63,7 @@
             },
         })
         all_docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-        console.log("ALL DOCS: ", all_docs.value.data)
+        // console.log("ALL DOCS: ", all_docs.value.data)
     }
 
     const show_docs = async() => {

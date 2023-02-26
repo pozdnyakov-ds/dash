@@ -85,15 +85,15 @@
                 <nuxt-link to="/contacts" exact class="navbar-link">{{ $t('contacts.title') }}</nuxt-link>
             </v-list-item> -->
 
-            <div v-for="item in docs.data" :key="item.id">
-                <v-list-item>
+            <div v-for="item in all_docs.data" :key="item.id">
+                <v-list-item v-if="docs[item.id]">
                     <nuxt-link :to="item.path" exact class="navbar-link">
-                        <div v-if="item.parent" style="margin-left: 10px;">
-                            {{ item.name }}
-                        </div>
-                        <div v-else style="margin-top: 10px; border-bottom: 1px #ccc solid;">
-                            {{ item.name }}
-                        </div>
+                            <div v-if="item.parent" style="margin-left: 10px;">
+                                {{ item.name }}
+                            </div>
+                            <div v-else style="margin-top: 10px; border-bottom: 1px #ccc solid;">
+                                {{ item.name }}
+                            </div>
                     </nuxt-link>
                 </v-list-item>
             </div> 
@@ -102,9 +102,12 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 let drawer = ref(true)
 let tab = ref(null)
-let docs = ref({})
+let all_docs = ref([])
+let docs = ref([])
 const userStore = useUserStore()
 
 let isAdmin = computed({
@@ -119,6 +122,7 @@ let isAdmin = computed({
 
 const logout = async () => {
     userStore.loggedIn = false
+    userStore.id = ''
     userStore.name = ''
     userStore.surname = ''
     userStore.email = ''
@@ -126,14 +130,47 @@ const logout = async () => {
     userStore.scope = {}
     userStore.docs = {}
 }
+
+const loadAllDocs = async () => {
     const { data, pending, error, refresh } = await useFetch('/api/docs', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
     })
+    all_docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
+    // console.log("ALL DOCS: ", all_docs.value.data)
+}
 
-    docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
+const loadDocs = async () => {
+    const { data, pending, error, refresh } = await useFetch('/api/users', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: {
+            action: 'users.get.docs',
+            id: userStore.id
+        }
+    })
+    docs.value = data && data.value && data.value.data && data.value.data.docs ? JSON.parse(data.value.data.docs) : []
+
+    const myDocs = data && data.value && data.value.data && data.value.data.docs ? JSON.parse(data.value.data.docs) : []
+    for (let key in all_docs.value.data) {
+        // console.log(key, all_docs.value.data[key], all_docs.value.data[key].parent);
+        let id = all_docs.value.data[key].id
+        let parent = all_docs.value.data[key].parent
+        if (myDocs[id] == 1 && all_docs.value.data[key].parent) {
+            myDocs[all_docs.value.data[key].parent] = 1
+        }
+    }
+    // console.log("PATCHED DOCS: ", myDocs)
+    docs.value = reactive(myDocs)
+
+}
+
+loadAllDocs()
+loadDocs()
 
 </script>
 
