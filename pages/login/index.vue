@@ -93,13 +93,15 @@
 				} 
 			})
 			.then(async (response) => {
-				console.log("DATA: ", response)
+				//console.log("DATA: ", response)
 				error.value = response.data.error
 				message.value = response.data.error > 0 ? response.data.message : ''
 
 				if (error.value == 0) {
 					// try {
 						const user = { ...response.data.user }
+						//console.log("LOGGED USER: ", user)
+
 						// let scope = user.scope.split(',') || []
 						let scope = JSON.parse(user.scope)
 						user.scope = {...scope}
@@ -114,7 +116,6 @@
         				userStore.email = user.email
         				userStore.phone = user.phone
 						userStore.scope = {...user.scope}
-						userStore.docs = {...user.docs}
 
 						const router = useRouter()
 						router.push("/")

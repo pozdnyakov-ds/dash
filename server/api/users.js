@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
     sqlite3.OPEN_READWRITE, (err) => {
       if (err) {
           setData(1, "Ошибка соединения", null);
-          return { data: null }
+          return data;
       }
   });
 
@@ -52,11 +52,11 @@ export default defineEventHandler(async (event) => {
       );
       if (!users) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
       } else {
         setData(0, "Успешно", users);
         // console.log("SERVER USERS: ", users)
-        return { data: users }
+        return data;
       }
       break;
 
@@ -71,10 +71,10 @@ export default defineEventHandler(async (event) => {
       );
       if (!res0) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
       } else {
         setData(0, "Успешно", res0);
-        return { data: res0 }
+        return data;
       }
       break;
 
@@ -85,7 +85,7 @@ export default defineEventHandler(async (event) => {
       );
       if (!rights) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
 
       } else {
         let data = JSON.parse(rights[0].scope);
@@ -97,10 +97,10 @@ export default defineEventHandler(async (event) => {
         );
         if (!res1) {
           setData(1, "Нет данных", null);
-          return { data: null }
+          return data;
         } else {
           setData(0, "Успешно", res1);
-          return { data: res1 }
+          return data;
         }
 
       }
@@ -115,10 +115,10 @@ export default defineEventHandler(async (event) => {
 
       if (!docs) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
       } else {
         setData(0, "Успешно", docs[0]);
-        return { data: docs[0] }
+        return data;
       }
       break;
 
@@ -129,11 +129,11 @@ export default defineEventHandler(async (event) => {
       );
       if (!res2) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
       } else {
         setData(0, "Успешно", res2);
         console.log("users.status: ", res2);
-        return { data: res2 }
+        return data;
       }
       break;
 
@@ -145,7 +145,7 @@ export default defineEventHandler(async (event) => {
 
       if (!docs_statuses) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
 
       } else {
         let data = JSON.parse(docs_statuses[0].docs);
@@ -158,10 +158,10 @@ export default defineEventHandler(async (event) => {
         );
         if (!res1) {
           setData(1, "Нет данных", null);
-          return { data: null }
+          return data;
         } else {
           setData(0, "Успешно", res1);
-          return { data: res1 }
+          return data;
         }
 
       }
@@ -174,12 +174,12 @@ export default defineEventHandler(async (event) => {
       );
       if (!res3) {
         setData(1, "Нет данных", null);
-        return { data: null }
+        return data;
       } else {
         setData(0, "Успешно", res3);
-        return { data: res3 }
+        return data;
       }
       break;
   }
-  
+
 });

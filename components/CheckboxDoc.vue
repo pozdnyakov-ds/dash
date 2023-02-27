@@ -12,7 +12,7 @@
             required: true,
         }, 
         id: {
-            type: String,
+            type: Number,
             required: true,
         }, 
         status: {
@@ -27,7 +27,7 @@
         if (props.id == 0) return
 
         checked.value = !checked.value
-        console.log("CHECKBOX: ", props)
+        // console.log("CHECKBOX: ", props)
 
         const { data, pending, error, refresh } = useFetch('/api/users', {
             method: 'POST',

@@ -12,8 +12,8 @@
                       Список документов
                     </v-card-title>
                     <v-card-text>
-                        <!-- {{ docs }} -->
-                        <div v-for="doc in all_docs.data" :key="doc.id" style="vertical-align: top;">
+                        <!-- {{ all_docs }} -->
+                        <div v-for="doc in all_docs" :key="doc.id" style="vertical-align: top;">
                             <CheckboxDoc :id="doc.id" :user_id="props.id" :status="docs[doc.id] ? 1 : 0" style="display: inline-block; margin-right: 7px;"></CheckboxDoc>
                             <div v-if="doc.parent" style="display: inline-block;">&nbsp;&nbsp;{{doc.name}}</div>
                             <div v-else style="display: inline-block;"><b>{{doc.name}}</b></div>
@@ -61,14 +61,18 @@
             headers: {
                 "Content-Type": "application/json"
             },
+            body: {
+                action: 'docs.list',
+            }
         })
-        all_docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-        // console.log("ALL DOCS: ", all_docs.value.data)
+        const tempDocs = data && data.value && data.value?.docs ? JSON.parse(JSON.stringify(data.value?.docs)) : []
+            
+        all_docs.value = tempDocs
+        // console.log("BUTTON ALL DOCS: ", tempDocs)
     }
 
     const show_docs = async() => {
         loadAllDocs()
-    
         const { data, pending, error, refresh } = await useFetch('/api/users', {
             method: 'POST',
             headers: {
@@ -80,14 +84,15 @@
             }
         })
         if (data) {
-            // Show modal list
-            docs.value = data && data.value && data.value.data ? JSON.parse(data.value.data.docs) : []
-            console.log("LIST: ", docs.value)
+            const tempData = data && data.value && data.value?.docs ? JSON.parse(JSON.stringify(data.value?.docs)) : []
+            //console.log("TempData: ", JSON.parse(tempData.docs))
 
+            docs.value = JSON.parse(tempData.docs)
             //all_docs.value.forEach((doc) => {
             // for (let i = 0; i < all_docs.value.length; i++) {    
             //     console.log("ITEM: ", all_docs.value[i])
             // }
+            // console.log("READY DOCS: ", docs.value)
             dialog_docs.value = true
 
         } else {

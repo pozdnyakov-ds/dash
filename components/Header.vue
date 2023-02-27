@@ -20,15 +20,6 @@
                 <v-tab>
                     <nuxt-link key=1 to="/about">{{ $t('about.title') }}</nuxt-link>
                 </v-tab>
-                <v-tab>
-                    <nuxt-link key=2 to="/products">{{ $t('products.title') }}</nuxt-link>
-                </v-tab>
-                <v-tab>
-                    <nuxt-link key=3 to="/services">{{ $t('services.title') }}</nuxt-link>
-                </v-tab>
-                <v-tab>
-                    <nuxt-link key=4 to="/contacts">{{ $t('contacts.title') }}</nuxt-link>
-                </v-tab>
             </v-tabs>
         </template> -->
 
@@ -37,13 +28,13 @@
         <!-- <v-icon>mdi mdi-star-outline</v-icon> -->
         <!-- <div style="color: #fff;">{{ userStore.scope }}</div> -->
         
-        <!-- <client-only> -->
+        <client-only>
             <v-btn icon v-if="isAdmin">
                 <nuxt-link to="/admin">
                     <v-icon>mdi-pound-box</v-icon>
                 </nuxt-link>
             </v-btn>
-        <!-- </client-only> -->
+        </client-only>
 
         <client-only>
             <v-btn icon v-if="userStore.loggedIn">
@@ -62,30 +53,10 @@
         
         </v-app-bar>
 
+        <client-only>
         <v-navigation-drawer app color="#566573" :permanent="true" class="mt-5"
         style="top: 28px; width: 200px; padding-top: 10px;" v-model="drawer" text-color="white">
-
-            <!-- <v-list-item style="margin-top: 10px;">
-                <nuxt-link to="/" exact class="navbar-link">{{ $t('index.title') }}</nuxt-link>
-            </v-list-item>
-
-            <v-list-item>
-                <nuxt-link to="/about" exact class="navbar-link">{{ $t('about.title') }}</nuxt-link>
-            </v-list-item>
-
-            <v-list-item>
-                <nuxt-link to="/products" exact class="navbar-link">{{ $t('products.title') }}</nuxt-link>
-            </v-list-item>
-
-            <v-list-item>
-                <nuxt-link to="/services" exact class="navbar-link">{{ $t('services.title') }}</nuxt-link>
-            </v-list-item>
-
-            <v-list-item>
-                <nuxt-link to="/contacts" exact class="navbar-link">{{ $t('contacts.title') }}</nuxt-link>
-            </v-list-item> -->
-
-            <div v-for="item in all_docs.data" :key="item.id">
+            <div v-for="item in all_docs" :key="item.id">
                 <v-list-item v-if="docs[item.id]">
                     <nuxt-link :to="item.path" exact class="navbar-link">
                             <div v-if="item.parent" style="margin-left: 10px;">
@@ -98,6 +69,8 @@
                 </v-list-item>
             </div> 
         </v-navigation-drawer>
+        </client-only>
+
     </div>
 </template>
 
@@ -128,48 +101,25 @@ const logout = async () => {
     userStore.email = ''
     userStore.phone = ''
     userStore.scope = {}
-    userStore.docs = {}
-}
-
-const loadAllDocs = async () => {
-    const { data, pending, error, refresh } = await useFetch('/api/docs', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
-    all_docs.value = data && data.value ? JSON.parse(JSON.stringify(data.value)) : []
-    // console.log("ALL DOCS: ", all_docs.value.data)
 }
 
 const loadDocs = async () => {
-    const { data, pending, error, refresh } = await useFetch('/api/users', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: {
-            action: 'users.get.docs',
-            id: userStore.id
-        }
-    })
-    docs.value = data && data.value && data.value.data && data.value.data.docs ? JSON.parse(data.value.data.docs) : []
+    all_docs.value = userStore.loadAllDocs()
 
-    const myDocs = data && data.value && data.value.data && data.value.data.docs ? JSON.parse(data.value.data.docs) : []
-    for (let key in all_docs.value.data) {
-        // console.log(key, all_docs.value.data[key], all_docs.value.data[key].parent);
-        let id = all_docs.value.data[key].id
-        let parent = all_docs.value.data[key].parent
-        if (myDocs[id] == 1 && all_docs.value.data[key].parent) {
-            myDocs[all_docs.value.data[key].parent] = 1
+    let tempJson = await userStore.loadDocs()
+    const myDocs = tempJson && tempJson.length ? JSON.parse(tempJson) : []
+
+    for (let key in all_docs.value) {
+        let id = all_docs.value[key].id
+        let parent = all_docs.value[key].parent
+
+        if (myDocs[id] == 1 && all_docs.value[key].parent) {
+            myDocs[all_docs.value[key].parent] = 1
         }
     }
-    // console.log("PATCHED DOCS: ", myDocs)
     docs.value = reactive(myDocs)
-
+    // console.log("loadDocs: ", docs.value)
 }
-
-loadAllDocs()
 loadDocs()
 
 </script>

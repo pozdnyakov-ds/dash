@@ -154,8 +154,7 @@
                 action: 'users.list'
             }
         })
-        users.value = data && data.value && data.value.data ? JSON.parse(JSON.stringify(data.value.data)) : []
-        // console.log("USERS: ", users.value)
+        users.value = data && data.value && data.value.docs ? JSON.parse(JSON.stringify(data.value.docs)) : []
     }    
     
     const submitForm = (user) => {
