@@ -1,7 +1,34 @@
 <template>
     <div>
         <h1>{{ $t('index.title') }}</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ducimus eveniet necessitatibus rerum obcaecati magnam neque at esse incidunt aperiam voluptas nihil, molestiae itaque sed soluta a error ipsam reprehenderit doloremque est repudiandae accusantium. Impedit distinctio delectus soluta ipsum veritatis repellendus velit. Commodi provident natus distinctio fugiat praesentium doloribus vero atque officia dolor reprehenderit enim in, odio nam necessitatibus totam, expedita perspiciatis aliquid minima voluptatibus libero a sapiente quam? Iure ea rem veniam debitis, similique quia deleniti quibusdam laborum temporibus mollitia ratione, quod reiciendis animi labore, incidunt nihil ullam ipsum aliquid atque cupiditate. Tempora dolores ullam sit mollitia sapiente debitis. Quae sed, optio ipsum, odit ullam veritatis ipsam quam delectus rerum magnam iste corporis placeat ab blanditiis cupiditate eos similique expedita voluptatibus voluptates debitis deleniti! Culpa, sequi esse!</p>
+        <p>Statistics information for VRB projects</p>
+
+                <v-container fluid style="margin: 10px 0 10px 0; padding: 0px;">
+                    <v-row>
+                        <v-col>
+                            <v-img src="/img/pics/bangers.png" style="border-radius: 10px;" height="150" aspect-ratio="1" cover class="bg-white" />
+                            <span>VRBangers</span>
+                        </v-col>
+                        <v-col>
+                            <v-img src="/img/pics/trans.png" style="border-radius: 10px;" height="150" aspect-ratio="1" cover class="bg-white" />
+                            <span>VRBTrans</span>
+                        </v-col>
+                        <v-col>
+                            <v-img src="/img/pics/gay.png" style="border-radius: 10px;" height="150" aspect-ratio="1" cover class="bg-white" />
+                            <span>VRBGay</span>
+                        </v-col>
+                        <v-col>
+                            <v-img src="/img/pics/conk.png" style="border-radius: 10px;" height="150" aspect-ratio="1" cover class="bg-white" />
+                            <span>VRConk</span>
+                        </v-col>
+                        <v-col>
+                            <v-img src="/img/pics/blow.png" style="border-radius: 10px;" height="150" aspect-ratio="1" cover class="bg-white" />
+                            <span>BlowVR</span>
+                        </v-col>
+                    </v-row>                    
+                </v-container>    
+
+        <iframe src="https://docs.google.com/document/d/e/2PACX-1vQNSJaBm0dGbcUsH4OHJzKWsY8vPjGeJXr4YzT-3lw8S5yx3FHvWbdHuOF23rHX9g/pub?embedded=true" style="border: 1px solid #ccc; border-radius: 10px; width: 100%; height: 720px; padding: 0; margin: 10px 0 0 0; " frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>
     </div>
 </template>
 
@@ -10,8 +37,17 @@
         middleware: ['auth','access']
     }) 
 
+    
+
 </script>
 
 <style lang="scss" scoped>
+.pic {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    padding: 10px;
+}
 
 </style>

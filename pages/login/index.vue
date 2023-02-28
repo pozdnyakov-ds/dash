@@ -117,6 +117,8 @@
         				userStore.phone = user.phone
 						userStore.scope = {...user.scope}
 
+						console.log("AFTER LOGIN: ", userStore.id, userStore.loggedIn)
+
 						const router = useRouter()
 						router.push("/")
 

@@ -12,8 +12,8 @@ export const useUserStore = defineStore('user', {
         setPhone(phone: string) { 
             this.phone = phone
         },
-        loadAllDocs() {
-            const { data, pending, error, refresh } = useFetch('/api/docs', {
+        async loadAllDocs() {
+            const { data, pending, error, refresh } = await useFetch('/api/docs', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -25,9 +25,9 @@ export const useUserStore = defineStore('user', {
             const all_docs = data && data.value && data.value?.docs ? JSON.parse(JSON.stringify(data.value?.docs)) : []
             return all_docs
         },
-        loadDocs() {
+        async loadDocs() {
             const userId = this.id
-            const { data, pending, error, refresh } = useFetch('/api/users', {
+            const { data, pending, error, refresh } = await useFetch('/api/users', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

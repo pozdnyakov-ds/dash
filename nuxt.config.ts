@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@intlify/nuxt3',
     '@pinia-plugin-persistedstate/nuxt',
+    'nuxt-highcharts',
     [
       '@pinia/nuxt',
       {

@@ -56,6 +56,9 @@
         <client-only>
         <v-navigation-drawer app color="#566573" :permanent="true" class="mt-5"
         style="top: 28px; width: 200px; padding-top: 10px;" v-model="drawer" text-color="white">
+
+            <!-- {{ all_docs }} -->
+
             <div v-for="item in all_docs" :key="item.id">
                 <v-list-item v-if="docs[item.id]">
                     <nuxt-link :to="item.path" exact class="navbar-link">
@@ -104,8 +107,8 @@ const logout = async () => {
 }
 
 const loadDocs = async () => {
-    all_docs.value = userStore.loadAllDocs()
-
+    all_docs.value = await userStore.loadAllDocs()
+    
     let tempJson = await userStore.loadDocs()
     const myDocs = tempJson && tempJson.length ? JSON.parse(tempJson) : []
 
