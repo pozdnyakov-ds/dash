@@ -25,6 +25,15 @@ export default defineNuxtConfig({
     '@intlify/nuxt3',
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-highcharts',
+    ['nuxt3-lazy-load', {
+      images: true,
+      videos: true,
+      audios: true,
+      iframes: true,
+      native: false,
+      directiveOnly: true,
+      defaultImage: '/img/pics/blank.png',
+    }],
     [
       '@pinia/nuxt',
       {
