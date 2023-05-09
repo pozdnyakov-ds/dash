@@ -4,7 +4,7 @@
 
         <v-container style="margin-left: 0;">
             <v-row>
-                <v-col style="margin-right: 10px;">
+                <v-col style="margin-right: 10px; max-width: 200px;">
                     <client-only>
                         <v-select label="Project" 
                             :items="['VRBANGERS', 'VRBTRANS', 'VRBGAY', 'VRCONK', 'BLOWVR']"
@@ -13,7 +13,7 @@
                         ></v-select>
                     </client-only>
                 </v-col>
-                <v-col style="margin-right: 10px;">
+                <!-- <v-col style="margin-right: 10px;">
                     <client-only>
                         <v-select label="Quality" 
                             :items="['All', '4K', '5K', '6K', '8K', 'HD', 'HQ', 'PS']"
@@ -21,15 +21,15 @@
                             variant="outlined"
                         ></v-select>
                     </client-only>
-                </v-col>
-                <v-col style="margin-right: 10px;">
+                </v-col> -->
+                <v-col style="margin-right: 10px; max-width: 200px;">
                     <v-text-field v-model="startDate" 
                         label="Start date" 
                         type="date" 
                         variant="outlined">
                     </v-text-field>    
                 </v-col>
-                <v-col style="margin-right: 20px;">
+                <v-col style="margin-right: 20px; max-width: 200px;">
                     <v-text-field v-model="endDate" 
                         label="End date" 
                         type="date" 
@@ -41,14 +41,42 @@
 
         <v-card style="margin-top: 10px;">
             <client-only>
+                <v-text-field
+                    v-model="search"
+                    label="Search by any words, quality and other symbols..."
+                    single-line
+                    hide-details
+                    variant="outlined"
+                    style="margin-bottom: 15px;"
+                >
+                </v-text-field>
                 <v-data-table 
+                    hover
+                    dense
                     v-model:items-per-page="showBy"
-                    :headers="tableHeaders"
+                    :headers="headers"
                     :items="videos"
-                    item-title="title"
-                    item-value="id"
-                    no-data-text="No data"
-                ></v-data-table>
+                    :search="search"
+                    item-key="id"
+                    no-data-text="No data. Please turn on VPN!"
+                    class="elevation-1"
+                >
+                <template v-slot:headers="{ columns }">
+                    <tr>
+                        <template v-for="(column, index) in columns" :key="column.key">  
+                            <td v-if="index < 5" style="font-size: small; padding: 10px; background-color: #eee;"><b>{{ column.title }}</b></td>
+                            <td v-if="index < 10 && index >= 5" style="font-size: small; padding: 10px; background-color: rgb(255, 204, 204);"><b>{{ column.title }}</b></td>
+                            <td v-if="index >= 10" style="font-size: small; padding: 10px; background-color: rgb(204, 255, 204);"><b>{{ column.title }}</b></td>
+                        </template>
+                    </tr>
+                </template>
+
+                <template
+                    v-slot:item.date_gmt="{ item }">
+                    {{ (item && item.raw && item.raw.date_gmt) ? new Date(item.raw.date_gmt).toISOString().substr(0, 10) : "No data"}}
+                </template>
+
+                </v-data-table>
             </client-only>
         </v-card>
 
@@ -72,25 +100,26 @@
     const showBy = ref(10)
     const project = ref('VRBANGERS')
     const quality = ref('All')
+    const search = ref('')
 
-    const tableHeaders = [
+    const headers = [
         { title: 'Video Title', key: 'title' },
         { title: 'Website', key: 'Website' },
         { title: 'Release date', key: 'date_gmt' },
         { title: 'Length', key: 'video-duration' },
         { title: 'Quality', key: 'qual' },
 
-        { title: 'Website avarage view time', key: 'Average view time', class: 'website' },
-        // { title: 'Website total view time', key: '' },
-        // { title: 'Website views for period', key: '' },
-        // { title: 'Website views total', key: '' },
-        // { title: 'Website quality for period', key: '' },
+        { title: 'Website avarage view time', key: 'Average view time' },
+        { title: 'Website total view time', key: 'id' },
+        { title: 'Website views for period', key: 'id' },
+        { title: 'Website views total', key: 'id' },
+        { title: 'Website quality for period', key: 'id' },
 
-        // { title: 'Playa avarage view time', key: '' },
-        // { title: 'Playa total view time', key: '' },
-        // { title: 'Playa total view time', key: '' },
-        // { title: 'Playa views total', key: '' },
-        // { title: 'Playa quality for period', key: '' }
+        { title: 'Playa avarage view time', key: 'id' },
+        { title: 'Playa total view time', key: 'id' },
+        { title: 'Playa total view time', key: 'id' },
+        { title: 'Playa views total', key: 'id' },
+        { title: 'Playa quality for period', key: 'id' }
     ]
 
     definePageMeta({
@@ -110,7 +139,7 @@
     })
 
     // CHANGE QUALITY
-        watch(quality, (newValue) => {
+    watch(quality, (newValue) => {
       console.log('Quality: ', newValue)
       loadVideos()
     })
@@ -166,10 +195,19 @@
     margin: 10px 10px 10px 0;
     padding: 10px;
 }
+.common {
+    font-size: small; 
+    padding: 10px;
+    background-color: #eee;
+}
 .website {
+    font-size: small; 
+    padding: 10px;
     background-color: rgb(255, 204, 204);
 }
 .playa {
+    font-size: small; 
+    padding: 10px;
     background-color: rgb(204, 255, 204);
 }
 .loader {
@@ -184,5 +222,4 @@
     justify-content: center;
     background-color: #CCCCCC77;
 }
-
 </style>

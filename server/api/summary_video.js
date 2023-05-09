@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
     '?value=' + projectUrl + 
     '&date_start=' + params.date_start + 
     '&date_end=' + params.date_end;
+  console.log("apiUrl: ", apiUrl);
     
   const response = await fetch(apiUrl);
   const json = await response.json();

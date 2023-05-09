@@ -25,13 +25,10 @@
 
         <v-spacer></v-spacer>
 
-        <!-- <v-icon>mdi mdi-star-outline</v-icon> -->
-        <!-- <div style="color: #fff;">{{ userStore.scope }}</div> -->
-        
         <client-only>
             <v-btn icon v-if="isAdmin">
                 <nuxt-link to="/admin">
-                    <v-icon>mdi-pound-box</v-icon>
+                    <i class="mdi mdi-account-circle" style="font-size: 150%; cursor: pointer;"></i>
                 </nuxt-link>
             </v-btn>
         </client-only>
@@ -39,7 +36,7 @@
         <client-only>
             <v-btn icon v-if="userStore.loggedIn">
                 <nuxt-link to="#">
-                    <v-icon @click="logout">mdi-logout</v-icon>
+                    <i @click="logout" class="mdi mdi-logout" style="font-size: 150%; cursor: pointer;"></i>
                 </nuxt-link>
             </v-btn>
         </client-only>

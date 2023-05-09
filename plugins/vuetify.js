@@ -13,7 +13,7 @@ export default defineNuxtPlugin(nuxtApp => {
     components,
     directives,
     icons: {
-      defaultSet: 'mdi',
+      defaultSet: 'fa',
       aliases,
       sets: {
           mdi,
