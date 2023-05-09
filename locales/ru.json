@@ -9,13 +9,13 @@
     title: "Geo Statistics"
   },
   playa_statistic: {
-    title: "Sites & Devices Statistics"
+    title: "Websites & Devices Statistics"
   },
   videos_playa_api_statistic: {
     title: "Videos API Statistics"
   },
   categories_playa_statistic: {
-    title: "Videos Categories Statistics"
+    title: "Playa Categories Statistics"
   },
   models_playa_statistic: {
     title: "Videos Starring Statistics"
@@ -24,22 +24,31 @@
     title: "Videos Statistics"
   },
   dashboard_vrbcash: {
-    title: "Dashboard VRBCash"
+    title: "VRB Cash Summary"
   },
   dashboard_subscribers: {
     title: "Subscribers"
   },
   dashboard_vrbcash_statistics: {
-    title: "VRBCash Statistics"
+    title: "VRB Cash Statistics"
   },
   dashboard_vrbs_statistics: {
     title: "Site Video Statistics"
   },
   dashboard_sale_statistics: {
-    title: "Sale Statistics"
+    title: "VRB Sale Statistics"
   },
   playa_videos_statistics: {
     title: "Playa Statistics"
+  },
+  home: {
+    title: "Users manual"
+  },
+  summarr_video: {
+    title: "Summary video statistics"
+  },
+  summarr_models: {
+    title: "Summary models statistics"
   },
   no_access: {
     title: "No access"

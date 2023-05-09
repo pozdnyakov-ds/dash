@@ -38,7 +38,7 @@
         </v-card>
 
         <p><b>Registered Users </b></p>
-        <v-card style="margin-top: 10px;">
+        <v-card style="margin-top: 10px; margin-bottom: 30px;">
             <v-table>
                 <thead style="background-color: #eee;">
                     <tr>
