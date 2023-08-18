@@ -5,9 +5,10 @@
         </div>
 
         <h1>{{ $t('home.title') }}</h1>
-
-        <iframe src="https://docs.google.com/document/d/e/2PACX-1vQNSJaBm0dGbcUsH4OHJzKWsY8vPjGeJXr4YzT-3lw8S5yx3FHvWbdHuOF23rHX9g/pub?embedded=true" style="border: 1px solid #ccc; border-radius: 10px; width: 100%; height: 720px; padding: 0; margin: 10px 0 0 0; " frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>
-
+        
+        <client-only>
+            <iframe src="https://docs.google.com/document/d/1cJJv1X_ZzQQp66SPYUQJxu9-4VPidXWl/edit?usp=sharing&ouid=108659445759044868378&rtpof=true&sd=true" style="border: 1px solid #ccc; border-radius: 10px; width: 100%; height: 720px; padding: 0; margin: 10px 0 0 0; " frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>
+        </client-only>
     </div>
 </template>
 

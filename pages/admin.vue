@@ -45,9 +45,9 @@
                       <th class="text-left">Name</th>
                       <th class="text-left">Email</th>
                       <th class="text-left">Rights</th>
-                      <th class="text-left">Docs</th>
+                      <th class="text-left">Docs Rights</th>
                       <th class="text-left">Status</th>
-                      <th class="text-left"><i style="font-size: 150%; cursor: pointer;" class="mdi mdi-delete"></i></th>
+                      <th class="text-left">Delete</th>
                     </tr>
                 </thead>
                 <tbody>

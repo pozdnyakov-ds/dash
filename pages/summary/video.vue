@@ -58,7 +58,7 @@
                     :items="videos"
                     :search="search"
                     item-key="id"
-                    no-data-text="No data. Please turn on VPN!"
+                    no-data-text="There is no data. Please enable VPN!"
                     class="elevation-1"
                 >
                 <template v-slot:headers="{ columns }">
